@@ -20,9 +20,11 @@ public class DataSource {
   }
 
   public Profile getByOwner(final UUID owner) {
-    Profile profile = null;
-
-    for (Profile p : profiles) if (p.getOwner() == owner) profile = p;
+    Profile profile = profiles
+      .stream()
+      .filter(x -> x.getOwner() == owner)
+      .findFirst()
+      .get();
 
     return profile;
   }
@@ -56,5 +58,9 @@ public class DataSource {
     // int index = profiles.indexOf(profile);
     boolean isRemoved = profiles.remove(profile);
     return isRemoved ? 1 : 0;
+  }
+
+  public List<Profile> getAllProfiles() {
+    return profiles;
   }
 }

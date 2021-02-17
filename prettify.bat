@@ -1,1 +1,1 @@
-prettier --write **/**.js && prettier --write **/**.java
+prettier --write **/*.js && prettier --write **/*.java
