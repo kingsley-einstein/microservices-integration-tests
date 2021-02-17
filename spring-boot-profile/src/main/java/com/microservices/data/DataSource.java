@@ -26,4 +26,35 @@ public class DataSource {
 
     return profile;
   }
+
+  public Profile update(final UUID owner, Profile p) {
+    Profile profile = profiles
+      .stream()
+      .filter(x -> x.getOwner() == owner)
+      .findFirst()
+      .get();
+
+    int index = profiles.indexOf(profile);
+
+    if (p.getDob() != null) profile.setDob(p.getDob());
+
+    if (p.getMaritalStatus() != null) profile.setMaritalStatus(
+      p.getMaritalStatus()
+    );
+
+    Profile newProfile = profiles.set(index, profile);
+
+    return newProfile;
+  }
+
+  public Integer delete(final UUID owner) {
+    Profile profile = profiles
+      .stream()
+      .filter(x -> x.getOwner() == owner)
+      .findFirst()
+      .get();
+    // int index = profiles.indexOf(profile);
+    boolean isRemoved = profiles.remove(profile);
+    return isRemoved ? 1 : 0;
+  }
 }
