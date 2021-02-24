@@ -6,10 +6,12 @@ import com.microservices.feign.client.Auth;
 import com.microservices.models.Profile;
 import com.microservices.models.types.MaritalStatus;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +42,29 @@ public class API {
         )
       );
       return new ResponseEntity<>(profile, HttpStatus.CREATED);
+    } catch (Exception exc) {
+      return null;
+    }
+  }
+
+  @GetMapping("/byUser")
+  public ResponseEntity<Profile> findByUser(
+    @RequestHeader("Authorization") String authorization
+  ) {
+    try {
+      Auth auth = api.getAuth(authorization);
+      Profile profile = dataSource.getByOwner(auth.getId());
+      return new ResponseEntity<>(profile, HttpStatus.OK);
+    } catch (Exception exc) {
+      return null;
+    }
+  }
+
+  @GetMapping("/all")
+  public ResponseEntity<List<Profile>> getAll() {
+    try {
+      List<Profile> profiles = dataSource.getAllProfiles();
+      return new ResponseEntity<>(profiles, HttpStatus.OK);
     } catch (Exception exc) {
       return null;
     }

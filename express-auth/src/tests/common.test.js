@@ -35,6 +35,6 @@ test("App can deserialize user from token", async t => {
   const res2 = await request(app)
     .get(__PREFIX__ + "/deserialize")
     .set("Authorization", `Bearer ${res1.body.token}`);
-  console.log(res2.body);
+  t.log(res2.body);
   t.is(res2.statusCode, 200);
 });
