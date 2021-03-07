@@ -5,7 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 
-@FeignClient(url = "${auth.url}", path = "/api/v1")
+@FeignClient(url = "${auth.url}", path = "/api/v1", name = "auth-service")
 public interface AuthAPI {
   @GetMapping("/deserialize")
   public Auth getAuth(@RequestHeader("Authorization") String authorization);

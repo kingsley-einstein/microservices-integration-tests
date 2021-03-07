@@ -22,4 +22,13 @@ public class Auth implements java.io.Serializable {
   public UUID getId() {
     return id;
   }
+
+  @Override
+  public String toString() {
+    return String.format(
+      "{ \"username\": \"%s\", \"id\": \"%s\" }",
+      this.getUsername(),
+      this.getId().toString()
+    );
+  }
 }
