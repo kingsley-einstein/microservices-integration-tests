@@ -1,6 +1,7 @@
 package com.microservices.api;
 
 import com.microservices.data.DataSource;
+import com.microservices.errors.Error;
 import com.microservices.feign.AuthAPI;
 import com.microservices.feign.client.Auth;
 import com.microservices.models.Profile;
@@ -43,7 +44,7 @@ public class API {
       );
       return new ResponseEntity<>(profile, HttpStatus.CREATED);
     } catch (Exception exc) {
-      return null;
+      throw new Error(500, exc.getMessage());
     }
   }
 
@@ -56,7 +57,7 @@ public class API {
       Profile profile = dataSource.getByOwner(auth.getId());
       return new ResponseEntity<>(profile, HttpStatus.OK);
     } catch (Exception exc) {
-      return null;
+      throw new Error(500, exc.getMessage());
     }
   }
 
@@ -66,7 +67,7 @@ public class API {
       List<Profile> profiles = dataSource.getAllProfiles();
       return new ResponseEntity<>(profiles, HttpStatus.OK);
     } catch (Exception exc) {
-      return null;
+      throw new Error(500, exc.getMessage());
     }
   }
 }

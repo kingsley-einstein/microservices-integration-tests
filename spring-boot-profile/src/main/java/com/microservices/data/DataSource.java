@@ -7,10 +7,10 @@ import java.util.UUID;
 
 public class DataSource {
 
-  private List<Profile> profiles;
+  private List<Profile> profiles = new ArrayList<>();
 
   public DataSource() {
-    this.profiles = new ArrayList<>();
+    // this.profiles = new ArrayList<>();
   }
 
   public Profile add(final Profile profile) {
